@@ -46,12 +46,12 @@
     $clen4 = $_POST["clen4"];
     $sprava = $_POST["sprava"];
     $jmenoteamu = $_POST["jmenoteamu"];
-
+ try {
     $db = new PDO("mysql:host=localhost;dbname=windcup", "******", "******");
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   $dotazText = "INSERT INTO teami(jmenoteamu, jmenokapitana, emailkapitana, steamidkapitana, clen1, clen2, clen3, clen4, nahradnici) VALUES ('$jmenoteamu', '$meno', '$mail', '$predmet', '$clen1', '$clen2', '$clen3', '$clen4', '$sprava')";
 
-    try {
+   
         $db->query($dotazText);
     } catch (PDOException $e) {
       echo $e->getMessage();
