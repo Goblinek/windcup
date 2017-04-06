@@ -47,7 +47,7 @@
     $sprava = $_POST["sprava"];
     $jmenoteamu = $_POST["jmenoteamu"];
 
-    $db = new PDO("mysql:host=localhost;dbname=windcup", "root", "killmcserv24865");
+    $db = new PDO("mysql:host=localhost;dbname=windcup", "******", "******");
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $dotazText = "INSERT INTO teami(jmenoteamu) VALUES ('$jmenoteamu')";
     $dotazText = "INSERT INTO teami(jmenokapitana) VALUES ('$meno')";
