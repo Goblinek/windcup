@@ -8,7 +8,7 @@
 </head>
 <body> 
     <div id="bg">
-    <form method="POST">
+    <form method="POST" action="index.php">
      <h4>Jméno Teamu:</h4>
         <input type="text" name="jmenoteamu" class="jmenoteamu" required>
         <h4>Meno a Priezvisko kapitána tímu</h4>
