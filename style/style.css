@@ -24,7 +24,7 @@ form h4 {
     color: white;
 }
 
-form input.meno, input.mail, input.predmet, textarea.sprava {
+form input.meno, input.mail, input.predmet, textarea.sprava, input.clen1, input.clen2, input.clen3, input.clen4, input.jmenoteamu {
 	width: 300px;
 	height: 40px;
 	background: none;
