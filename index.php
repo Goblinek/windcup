@@ -49,15 +49,7 @@
 
     $db = new PDO("mysql:host=localhost;dbname=windcup", "******", "******");
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $dotazText = "INSERT INTO teami(jmenoteamu) VALUES ('$jmenoteamu')";
-    $dotazText = "INSERT INTO teami(jmenokapitana) VALUES ('$meno')";
-    $dotazText = "INSERT INTO teami(emailkapitana) VALUES ('$mail')";
-    $dotazText = "INSERT INTO teami(steamidkapitana) VALUES ('$predmet')";
-    $dotazText = "INSERT INTO teami(clen1) VALUES ('$clen1')";
-    $dotazText = "INSERT INTO teami(clen2) VALUES ('$clen2')";
-    $dotazText = "INSERT INTO teami(clen3) VALUES ('$clen3')";
-    $dotazText = "INSERT INTO teami(clen4) VALUES ('$clen4')";
-    $dotazText = "INSERT INTO teami(nahradnici) VALUES ('$sprava')";
+  $dotazText = "INSERT INTO teami(jmenoteamu, jmenokapitana, emailkapitana, steamidkapitana, clen1, clen2, clen3, clen4, nahradnici) VALUES ('$jmenoteamu, $meno, $mail, $predmed, $clen1, $clen2, $clen3, $clen4, $sprava')";
 
     try {
         $db->query($dotazText);
