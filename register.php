@@ -76,7 +76,7 @@ l <!DOCTYPE html>
                  }
                 
                 // Odoslanie obrázka
-                $odoslat_do = "image/teams/";
+                $odoslat_do = "images/teams/";
                 $odoslat_subor = $odoslat_do . basename($_FILES["picUpload"]["name"]);
                 $uploadOk = 1;
                 $typObrazka = pathinfo($odoslat_subor, PATHINFO_EXTENSION);
