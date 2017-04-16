@@ -47,8 +47,24 @@ table {
 body {
 	font-size: 15px;
 	font-family: "Palanquin", sans-serif;
-	background: #1f3642;
+	background: #273e49;
 	margin: 0 auto;
+}
+
+/* --Scrollbar-- */
+
+::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+	background-color: #1f3642;
+}
+
+::-webkit-scrollbar {
+	width: 3px;
+	background-color: #ffb900;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #ffb900;
 }
 
 /* --Navigation-- */
@@ -91,23 +107,27 @@ body {
 	color: white;
 	font-size: 15px;
 	font-weight: bold;
+	transition: 0.5s;
 }
 
 .nav ul li a.active {
 	color: #ffb900;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #f60;
 }
 
 .nav ul li a:hover {
 	color: #ffb900;
 	transition: 0.5s;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #f60;
 }
 
 /* --Main-- */
 
 #main_wrap {
 	width: 100%;
-	height: auto;
-	margin-top: 110px;
+	margin-top: 75px;
 }
 
 .main {
@@ -115,8 +135,18 @@ body {
 	margin: 0 auto;
 }
 
+/* --Main-bg-- */
+
+.main-bg {
+	background: url("../images/logo.png");
+	z-index: 10;
+}
+
+/* --Main register-- */
+
 .main form {
 	text-align: center;
+	padding-top: 30px;
 }
 
 .main form h4 {
@@ -151,8 +181,8 @@ body {
 }
 
 .main form input.odoslat {
-	width: 100px;
-	height: 40px;
+	width: 120px;
+	height: 50px;
 	background: none;
 	border: 1px solid #ffb900;
 	color: #ffb900;
@@ -161,11 +191,110 @@ body {
 	outline: none;
 	margin-bottom: 50px;
 	border-radius: 10px;
+	transition: 0.5s;
 }
 
 .main form input.odoslat:hover {
 	cursor: pointer;
 	color: white;
 	background: #ffb900;
+}
+
+/* --Main index-- */
+
+.main img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 150px;
+}
+
+.a-text {
+	margin-top: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.a-text a {
+	color: white;
+	padding: 20px 40px;
+	font-size: 20px;
+	font-weight: bold;
+	text-decoration: none;
+	border: 1px solid #ffb900;
+	border-radius: 15px;
 	transition: 0.5s;
+}
+
+.a-text a:hover {
+	background: #ffb900;
+}
+
+.container {
+	margin-top: 70px;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.text {
+	font-size: 50px;
+    color: white;
+}
+
+.dud {
+	color: #ffb900;
+}
+
+/* --Main rules-- */
+
+.main h3.left {
+	text-align: left;
+	padding-left: 20px;
+}
+
+.main p.left {
+	text-align: left;
+	color: white;
+}
+
+/* --Footer-- */
+
+#footer_wrap {
+	width: 100%
+}
+
+.footer {
+	width: 1100px
+	margin: 0 auto;
+	padding-bottom: 30px;
+}
+
+.footer p {
+    text-align: center;
+    color: rgba(255,255,255,0.25);
+}
+
+.footer a {
+	color: rgba(255,255,255,0.25);
+	transition: 0.5s;
+}
+
+.footer a:hover {
+	color: #ffb900;
+}
+
+/* --Responsive-- */
+
+@media only screen and (min-width: 1920px) {
+	.footer-abs {
+	    position: absolute;
+	    bottom: 0;
+	    left: 50%;
+	    transform: translate(-50%, -50%);
+	    padding-bottom: 16px;
+    }
 }
