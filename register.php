@@ -42,7 +42,7 @@
                     $sprava = $_POST["sprava"];
                     $jmenoteamu = $_POST["jmenoteamu"];
  
-                    $db = new PDO("mysql:host=sql.endora.cz;dbname=windcup", "polkov", "alks1097");
+                    $db = new PDO("mysql:host=sql.endora.cz;dbname=windcup", "***", "*****");
                     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                     $dotazText = "INSERT INTO teami(jmenoteamu, jmenokapitana, emailkapitana, steamidkapitana, clen1, clen2, clen3, clen4, nahradnici) VALUES ('$jmenoteamu', '$meno', '$mail', '$predmet', '$clen1', '$clen2', '$clen3', '$clen4', '$sprava')";
                 
