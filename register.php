@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="style/style.css">
-    <title>WindCup | Registrácia</title>
+	<title>WindCup | Registrácia</title>
     <link rel="shortcut icon" href="images/logo.png">
     <script src="js/nocopy.js"></script>
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
@@ -17,18 +17,85 @@
 <body>
     <div id="nav_wrap">
         <div class="nav">
-        <a href="index.html"><img src="images/logo.png"></a>
+        <a href="index.php"><img src="images/logo.png"></a>
     	    <ul>
-    	    	<li><a href="index.html">Domov</a></li>
+    	    	<li><a href="index.php">Domov</a></li>
     	    	<!-- <li><a href="teams.html">Tímy</a></li> -->
-    	    	<li><a href="register.html" class="active">Registrácia</a></li>
-    	    	<li><a href="rules.html">Pravidlá</a>
-    	    	<li><a href="contact.html">Kontakt</a></li>
+    	    	<li><a href="register.php" class="active">Registrácia</a></li>
+    	    	<li><a href="rules.php">Pravidlá</a>
+    	    	<li><a href="contact.php">Kontakt</a></li>
     	    </ul>
     	</div>
     </div>
     <div id="main_wrap">
     	<div class="main">
+            <?php
+                // Odoslanie do tabuľky
+                if(isset($_POST["submit"])) {
+                    $meno = $_POST["meno"];
+                    $mail = $_POST["mail"];
+                    $predmet = $_POST["predmet"];
+                    $clen1 = $_POST["clen1"];
+                    $clen2 = $_POST["clen2"];
+                    $clen3 = $_POST["clen3"];
+                    $clen4 = $_POST["clen4"];
+                    $sprava = $_POST["sprava"];
+                    $jmenoteamu = $_POST["jmenoteamu"];
+ 
+                    $db = new PDO("mysql:host=sql.endora.cz;dbname=windcup", "polkov", "alks1097");
+                    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    $dotazText = "INSERT INTO teami(jmenoteamu, jmenokapitana, emailkapitana, steamidkapitana, clen1, clen2, clen3, clen4, nahradnici) VALUES ('$jmenoteamu', '$meno', '$mail', '$predmet', '$clen1', '$clen2', '$clen3', '$clen4', '$sprava')";
+                
+                    try {
+                        $db->query($dotazText);
+                        echo "<br><br><br><p style='color: #ffb900; text-align: center; font-size: 15px;'>Vaša správa sa úspešne odoslala!</p>";
+                    } catch (PDOException $e) {
+                      echo $e->getMessage();
+                    }
+                } 
+                
+                // Odoslanie obrázka
+                if(isset($_POST["submit"])) {
+                    $odoslat_do = "images/teams/";
+                    $odoslat_subor = $odoslat_do . basename($_FILES["picUpload"]["name"]);
+                    $uploadOk = true;
+                    $typObrazka = pathinfo($odoslat_subor, PATHINFO_EXTENSION);
+                    // Pozrieť či je obrázok naozaj obrázkom alebo je to fejk
+                        $pozriet = getimagesize($_FILES["picUpload"]["tmp_name"]);
+                        if($pozriet !== false) {
+                            $uploadOk = true;
+                        } else {
+                            echo "<p style='color: #ffb900; text-align: center; font-size: 15px;'>Obrázok nie je obrázkom.</p>";
+                            $uploadOk = false;
+                        }
+                    // Ak obrázok v priečinku už existuje
+                    if(file_exists($odoslat_subor)) {
+                        echo "<p style='color: #ffb900; text-align: center; font-size: 15px;'>Prepáčte, ale obrázok s týmto názvom už existuje.</p>";
+                        $uploadOk = false;
+                    }
+                    // Ak obrázok presahuje povolené množstvo veľkosti súboru (10MB = 10 000 000B)
+                    if($_FILES["picUpload"]["size"] > 10000000) {
+                        echo "<p style='color: #ffb900; text-align: center; font-size: 15px;'>Prepáčte, váš obrázok je príliš veľký</p>";
+                        $uploadOk = false;
+                    }
+                    // Povoliť len png formát obrázku
+                    if($typObrazka != "png") {
+                        echo "<p style='color: #ffb900; text-align: center; font-size: 15px;'>Prepáčte, ale povolený formát obrázka je v png formáte.</p>";
+                        $uploadOk = false;
+                    }
+                    // Obrázok sa nenahral kvôli "0" chybe
+                    if($uploadOk = false) {
+                        echo "<p style='color: #ffb900; text-align: center; font-size: 15px;'>Prepáčte, váš obrázok nebol nahratý.</p>";
+                    // ak je všetko ok, nahrať obrázok
+                    } else {
+                        if(move_uploaded_file($_FILES["picUpload"]["tmp_name"], $odoslat_subor)) {
+                            echo "<br><br><p style='color: #ffb900; text-align: center; font-size: 15px;'>Obrázok " . basename($_FILES["picUpload"]["name"]) . " bol úspešne nahratý.</p>";
+                        } else {
+                            echo "<p style='color: #ffb900; text-align: center; font-size: 15px;'>Prepáčte, vyskytol sa nejaký problém s nahrávím vášho obrázka. Prosím skúste to znova neskôr.</p>";
+                        }
+                    }
+                }
+            ?>
     		<form method="POST" action="register.php" accept="image/png" enctype="multipart/form-data">
     		    <div style="float: left; margin-left: 150px;">
                     <h4>Meno Tímu</h4>
@@ -58,77 +125,6 @@
                     <br>
                 <input type="submit" name="submit" value="Odoslať" class="odoslat">
                 </div>
-
-               <?php
-
-                // Odoslanie do tabuľky
-                if(isset($_POST["submit"])) {
-                    $meno = $_POST["meno"];
-                    $mail = $_POST["mail"];
-                    $predmet = $_POST["predmet"];
-                    $clen1 = $_POST["clen1"];
-                    $clen2 = $_POST["clen2"];
-                    $clen3 = $_POST["clen3"];
-                    $clen4 = $_POST["clen4"];
-                    $sprava = $_POST["sprava"];
-                    $jmenoteamu = $_POST["jmenoteamu"];
- 
-                    $db = new PDO("mysql:host=sql.endora.cz;dbname=windcup", "***", "****");
-                    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                    $dotazText = "INSERT INTO teami(jmenoteamu, jmenokapitana, emailkapitana, steamidkapitana, clen1, clen2, clen3, clen4, nahradnici) VALUES ('$jmenoteamu', '$meno', '$mail', '$predmet', '$clen1', '$clen2', '$clen3', '$clen4', '$sprava')";
-                
-                    try {
-                        $db->query($dotazText);
-                    } catch (PDOException $e) {
-                      echo $e->getMessage();
-                    }
-                } 
-                
-                // Odoslanie obrázka
-                if(isset($_POST["submit"])) {
-                    $odoslat_do = "images/teams/";
-                    $odoslat_subor = $odoslat_do . basename($_FILES["picUpload"]["name"]);
-                    $uploadOk = true;
-                    $typObrazka = pathinfo($odoslat_subor, PATHINFO_EXTENSION);
-                    // Pozrieť či je obrázok naozaj obrázkom alebo je to fejk
-                    	$pozriet = getimagesize($_FILES["picUpload"]["tmp_name"]);
-                    	if($pozriet !== false) {
-                    		$uploadOk = true;
-                    	} else {
-                    		echo "<p>Obrázok nie je obrázkom.</p>";
-                    		$uploadOk = false;
-                    	}
-                    // Ak obrázok v priečinku už existuje
-                    if(file_exists($odoslat_subor)) {
-                    	echo "<p>Prepáčte, ale obrázok s týmto názvom už existuje.</p>";
-                    	$uploadOk = false;
-                    }
-                    // Ak obrázok presahuje povolené množstvo veľkosti súboru (10MB = 10 000 000B)
-                    if($_FILES["picUpload"]["size"] > 10000000) {
-                    	echo "<p>Prepáčte, váš obrázok je príliš veľký</p>";
-                    	$uploadOk = false;
-                    }
-                    // Povoliť len png formát obrázku
-                    if($_FILES(["picUpload"]["type"]) != "png") {
-                    	echo "<p>Prepáčte, ale povolený formát obrázka je v png formáte.</p>";
-                    	$uploadOk = false;
-                    }
-                    // Obrázok sa nenahral kvôli "0" chybe
-                    if($uploadOk = false) {
-                        echo "<p>Prepáčte, váš obrázok nebol nahratý.</p>";
-                    // ak je všetko ok, nahrať obrázok
-                    } else {
-                        if(move_uploaded_file($_FILES["picUpload"]["tmp_name"], $odoslat_subor)) {
-                            echo "<p>Obrázok " . basename($_FILES["picUpload"]["name"]) . " bol úspešne nahratý.</p>";
-                        } else {
-                            echo "<p>Prepáčte, vyskytol sa nejaký problém s nahrávím vášho obrázka. Prosím skúste to znova neskôr.</p>";
-                        }
-                    }
-                }
-
-
-                ?>
-
             </form>
     	</div>
     </div>
